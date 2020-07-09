@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SharkPredator : MonoBehaviour
 {
-    float speed = 5.0f;
+    float speed = 1.0f;
     public FlockManager myManager;
     bool turning1 = false;
     // Start is called before the first frame update
@@ -22,7 +22,7 @@ public class SharkPredator : MonoBehaviour
         {
             turning1 = true;
         }
-        else if (Physics.Raycast(transform.position, this.transform.forward * 50, out hit1))
+        else if (Physics.Raycast(transform.position, this.transform.forward * 100, out hit1))
         {
             turning1 = true;
             direction1 = Vector3.Reflect(this.transform.forward, hit1.normal);
@@ -40,31 +40,27 @@ public class SharkPredator : MonoBehaviour
         else
         {
             if (Random.Range(0, 100) < 10)
-                speed = Random.Range(myManager.minSpeed, myManager.maxSpeed);
+                speed = 7.0f;
         }
 
         transform.Translate(0, 0, Time.deltaTime * speed);
 
-        //if (Random.Range(0, 100) < 10)
-        //    ApplyRules();
+        if(myManager.isFlocking)
+            ApplyRules();
         
     }
 
     void ApplyRules()
     {
-        Vector3 vcentre = Vector3.zero;
-        Vector3 vavoid = Vector3.zero;
-        float gSpeed = 0.01f;
-        int groupSize = 0;
+        Vector3 vcentre1 = Vector3.zero;
 
-        vcentre = vcentre / groupSize + (myManager.goalPos - this.transform.position);
-        speed = gSpeed / groupSize;
+        vcentre1 = vcentre1 + (myManager.flockCenter - this.transform.position);
 
-        Vector3 direction = (vcentre + vavoid) - transform.position;
-        if (direction != Vector3.zero)
+        Vector3 direction1 = vcentre1;
+        if (direction1 != Vector3.zero)
         {
             transform.rotation = Quaternion.Slerp(transform.rotation,
-                Quaternion.LookRotation(direction), myManager.rotationSpeed * Time.deltaTime);
+                Quaternion.LookRotation(direction1), 1 * Time.deltaTime);
         }
     }
 }

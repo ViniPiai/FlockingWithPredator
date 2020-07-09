@@ -27,7 +27,7 @@ public class Flock : MonoBehaviour
         {
             turning = true;
         }
-        else if(Physics.Raycast(transform.position, this.transform.forward * 50, out hit))
+        else if(Physics.Raycast(transform.position, this.transform.forward * 150, out hit))
         {
             turning = true;
             direction = Vector3.Reflect(this.transform.forward, hit.normal);
@@ -85,12 +85,12 @@ public class Flock : MonoBehaviour
                 }
             }
         }
-        myManager.isFlocking = groupSize > 0;
+        
         if(groupSize > 0)
         {
             vcentre = vcentre / groupSize + (myManager.goalPos - this.transform.position);
             speed = gSpeed / groupSize;
-
+            myManager.flockCenter = vcentre;
             Vector3 direction = (vcentre + vavoid) - transform.position;
             if(direction != Vector3.zero)
             {

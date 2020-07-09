@@ -13,16 +13,16 @@ public class FlockManager : MonoBehaviour
     public Vector3 goalPos;
 
     [Header("Fish settings")]
-    [Range(0.0f, 5.0f)]
+    [Range(0.0f, 15.0f)]
     public float minSpeed;
-    [Range(0.0f, 5.0f)]
+    [Range(0.0f, 50.0f)]
     public float maxSpeed;
     [Range(1.0f, 10.0f)]
     public float neighbourDistance;
     [Range(0.0f, 5.0f)]
     public float rotationSpeed;
 
-
+    public Vector3 flockCenter = Vector3.zero;
     public bool isFlocking = false;
 
     void Start()
